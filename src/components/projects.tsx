@@ -10,7 +10,6 @@ import { useRef } from "react"
 import { ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { SectionTitle } from "@/components/section-title"
 
 export function Projects() {
   const { language } = useLanguage()
@@ -137,7 +136,17 @@ export function Projects() {
           variants={containerVariants}
           className="space-y-12"
         >
-          <SectionTitle title={currentContent.title} description={currentContent.description} />
+          <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto">
+            <div className="inline-block mb-4">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-lg blur opacity-25"></div>
+                <div className="relative bg-background px-6 py-2 rounded-lg border">
+                  <h2 className="text-3xl font-bold">{currentContent.title}</h2>
+                </div>
+              </div>
+            </div>
+            <p className="text-lg text-muted-foreground">{currentContent.description}</p>
+          </motion.div>
 
           <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {currentContent.projects.map((project, index) => (
@@ -160,21 +169,21 @@ export function Projects() {
                     <CardTitle>{project.title}</CardTitle>
                     <CardDescription>{project.description}</CardDescription>
                   </CardHeader>
-                  <CardContent className="flex flex-wrap gap-2 overflow-hidden">
+                  <CardContent className="flex flex-wrap gap-2">
                     {project.tags.map((tag, i) => (
-                      <Badge key={i} variant="secondary" className="mb-1">
+                      <Badge key={i} variant="secondary">
                         {tag}
                       </Badge>
                     ))}
                   </CardContent>
-                  <CardFooter className="flex flex-wrap gap-2 mt-auto">
-                    <Button asChild variant="default" size="sm" className="w-full sm:w-auto">
+                  <CardFooter className="flex gap-4 mt-auto">
+                    <Button asChild variant="default" size="sm">
                       <Link href={project.liveUrl} target="_blank">
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Demo
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
+                    <Button asChild variant="outline" size="sm">
                       <Link href={project.githubUrl} target="_blank">
                         <Github className="mr-2 h-4 w-4" />
                         Código

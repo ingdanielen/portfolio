@@ -9,7 +9,6 @@ import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Play, ImageIcon, Palette, X } from "lucide-react"
 import Image from "next/image"
-import { SectionTitle } from "@/components/section-title"
 
 export function ContentGallery() {
   const { language } = useLanguage()
@@ -158,20 +157,30 @@ export function ContentGallery() {
           variants={containerVariants}
           className="space-y-12"
         >
-          <SectionTitle title={currentContent.title} description={currentContent.description} />
+          <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto">
+            <div className="inline-block mb-4">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-lg blur opacity-25"></div>
+                <div className="relative bg-background px-6 py-2 rounded-lg border">
+                  <h2 className="text-3xl font-bold">{currentContent.title}</h2>
+                </div>
+              </div>
+            </div>
+            <p className="text-lg text-muted-foreground">{currentContent.description}</p>
+          </motion.div>
 
           <motion.div variants={itemVariants}>
             <Tabs defaultValue="videos" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8">
-                <TabsTrigger value="videos" className="flex items-center gap-2 px-2 sm:px-4">
+              <TabsList className="grid w-full grid-cols-3 mb-8">
+                <TabsTrigger value="videos" className="flex items-center gap-2">
                   <Play className="h-4 w-4" />
                   <span className="hidden sm:inline">{currentContent.tabs.videos}</span>
                 </TabsTrigger>
-                <TabsTrigger value="graphics" className="flex items-center gap-2 px-2 sm:px-4">
+                <TabsTrigger value="graphics" className="flex items-center gap-2">
                   <Palette className="h-4 w-4" />
                   <span className="hidden sm:inline">{currentContent.tabs.graphics}</span>
                 </TabsTrigger>
-                <TabsTrigger value="social" className="flex items-center gap-2 px-2 sm:px-4">
+                <TabsTrigger value="social" className="flex items-center gap-2">
                   <ImageIcon className="h-4 w-4" />
                   <span className="hidden sm:inline">{currentContent.tabs.social}</span>
                 </TabsTrigger>

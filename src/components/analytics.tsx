@@ -1,18 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
-
+// Este componente es un placeholder para futuras integraciones de analytics
 export function Analytics() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    // Aquí puedes integrar tu solución de analytics preferida
-    // Por ejemplo, Google Analytics, Plausible, etc.
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "")
-    console.log(`Page view: ${url}`)
-  }, [pathname, searchParams])
-
   return null
 }

@@ -1,87 +1,74 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useMobile } from "@/hooks/use-mobile"
 
 export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [cursorVariant, setCursorVariant] = useState("default")
+  const [isPointer, setIsPointer] = useState(false)
   const isMobile = useMobile()
 
   useEffect(() => {
     if (isMobile) return
 
-    const mouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-      })
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
     }
 
-    const mouseDown = () => setCursorVariant("click")
-    const mouseUp = () => setCursorVariant("default")
+    const handlePointerDetection = () => {
+      const hoveredElement = document.elementFromPoint(mousePosition.x, mousePosition.y)
+      const isClickable =
+        hoveredElement?.tagName === "BUTTON" ||
+        hoveredElement?.tagName === "A" ||
+        hoveredElement?.closest("button") ||
+        hoveredElement?.closest("a") ||
+        hoveredElement?.getAttribute("role") === "button" ||
+        hoveredElement?.classList.contains("cursor-pointer")
 
-    const handleLinkHover = () => setCursorVariant("hover")
-    const handleLinkLeave = () => setCursorVariant("default")
+      setIsPointer(!!isClickable)
+    }
 
-    window.addEventListener("mousemove", mouseMove)
-    window.addEventListener("mousedown", mouseDown)
-    window.addEventListener("mouseup", mouseUp)
-
-    const links = document.querySelectorAll("a, button")
-    links.forEach((link) => {
-      link.addEventListener("mouseenter", handleLinkHover)
-      link.addEventListener("mouseleave", handleLinkLeave)
-    })
+    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handlePointerDetection)
 
     return () => {
-      window.removeEventListener("mousemove", mouseMove)
-      window.removeEventListener("mousedown", mouseDown)
-      window.removeEventListener("mouseup", mouseUp)
-
-      links.forEach((link) => {
-        link.removeEventListener("mouseenter", handleLinkHover)
-        link.removeEventListener("mouseleave", handleLinkLeave)
-      })
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("mousemove", handlePointerDetection)
     }
-  }, [isMobile])
-
-  const variants = {
-    default: {
-      x: mousePosition.x - 8,
-      y: mousePosition.y - 8,
-      height: 16,
-      width: 16,
-      backgroundColor: "var(--primary)",
-      mixBlendMode: "difference",
-    },
-    hover: {
-      x: mousePosition.x - 16,
-      y: mousePosition.y - 16,
-      height: 32,
-      width: 32,
-      backgroundColor: "var(--primary)",
-      mixBlendMode: "difference",
-    },
-    click: {
-      x: mousePosition.x - 6,
-      y: mousePosition.y - 6,
-      height: 12,
-      width: 12,
-      backgroundColor: "var(--primary)",
-      mixBlendMode: "difference",
-    },
-  }
+  }, [mousePosition.x, mousePosition.y, isMobile])
 
   if (isMobile) return null
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[100] opacity-70"
-      variants={variants}
-      animate={cursorVariant}
-      transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
-    />
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-primary pointer-events-none z-50 mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 16,
+          y: mousePosition.y - 16,
+          scale: isPointer ? 1.5 : 1,
+        }}
+        transition={{
+          type: "spring",
+          mass: 0.1,
+          stiffness: 800,
+          damping: 30,
+        }}
+      />
+      <motion.div
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-primary pointer-events-none z-50 mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 4,
+          y: mousePosition.y - 4,
+        }}
+        transition={{
+          type: "spring",
+          mass: 0.1,
+          stiffness: 1000,
+          damping: 30,
+        }}
+      />
+    </>
   )
 }

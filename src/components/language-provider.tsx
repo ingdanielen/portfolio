@@ -1,6 +1,7 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import type React from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 
 type Language = "es" | "en"
 
@@ -11,24 +12,28 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("es")
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  // Intentar obtener el idioma guardado en localStorage, o usar español por defecto
+  const [language, setLanguageState] = useState<Language>("es")
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null
-    if (savedLanguage) {
-      setLanguage(savedLanguage)
+    // Solo acceder a localStorage en el cliente
+    const savedLanguage = localStorage.getItem("language") as Language
+    if (savedLanguage === "es" || savedLanguage === "en") {
+      setLanguageState(savedLanguage)
+    } else {
+      // Detectar idioma del navegador como alternativa
+      const browserLanguage = navigator.language.startsWith("es") ? "es" : "en"
+      setLanguageState(browserLanguage)
     }
   }, [])
 
-  const handleSetLanguage = (newLanguage: Language) => {
-    setLanguage(newLanguage)
+  const setLanguage = (newLanguage: Language) => {
+    setLanguageState(newLanguage)
     localStorage.setItem("language", newLanguage)
   }
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage }}>{children}</LanguageContext.Provider>
-  )
+  return <LanguageContext.Provider value={{ language, setLanguage }}>{children}</LanguageContext.Provider>
 }
 
 export function useLanguage() {

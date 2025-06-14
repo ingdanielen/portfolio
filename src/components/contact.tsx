@@ -10,7 +10,6 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Send, Mail, MapPin, Phone, Linkedin, Github, Instagram } from "lucide-react"
-import { SectionTitle } from "@/components/section-title"
 
 export function Contact() {
   const { language } = useLanguage()
@@ -122,7 +121,13 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-muted/30">
+    <section id="contact" className="py-20 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-20 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      </div>
+
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -131,25 +136,61 @@ export function Contact() {
           variants={containerVariants}
           className="space-y-12"
         >
-          <SectionTitle title={currentContent.title} description={currentContent.description} />
+          <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto">
+            <div className="inline-block mb-4">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-lg blur opacity-25"></div>
+                <div className="relative bg-background px-6 py-2 rounded-lg border">
+                  <h2 className="text-3xl font-bold">{currentContent.title}</h2>
+                </div>
+              </div>
+            </div>
+            <p className="text-lg text-muted-foreground">{currentContent.description}</p>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <motion.div variants={itemVariants} className="lg:col-span-3 bg-background p-6 rounded-xl shadow-sm border">
+            <motion.div
+              variants={itemVariants}
+              className="lg:col-span-3 bg-background p-8 rounded-xl shadow-lg border relative overflow-hidden"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center h-full py-12">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
-                    <Send className="h-8 w-8" />
-                  </div>
-                  <p className="text-lg font-medium text-center">{currentContent.form.success}</p>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6"
+                  >
+                    <Send className="h-10 w-10" />
+                  </motion.div>
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-xl font-medium text-center"
+                  >
+                    {currentContent.form.success}
+                  </motion.p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">
                         {currentContent.form.name}
                       </label>
-                      <Input id="name" name="name" value={formState.name} onChange={handleChange} required />
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formState.name}
+                        onChange={handleChange}
+                        required
+                        className="border-muted-foreground/20 focus:border-primary"
+                      />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm font-medium">
@@ -162,6 +203,7 @@ export function Contact() {
                         value={formState.email}
                         onChange={handleChange}
                         required
+                        className="border-muted-foreground/20 focus:border-primary"
                       />
                     </div>
                   </div>
@@ -169,7 +211,14 @@ export function Contact() {
                     <label htmlFor="subject" className="text-sm font-medium">
                       {currentContent.form.subject}
                     </label>
-                    <Input id="subject" name="subject" value={formState.subject} onChange={handleChange} required />
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formState.subject}
+                      onChange={handleChange}
+                      required
+                      className="border-muted-foreground/20 focus:border-primary"
+                    />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
@@ -182,9 +231,14 @@ export function Contact() {
                       value={formState.message}
                       onChange={handleChange}
                       required
+                      className="border-muted-foreground/20 focus:border-primary resize-none"
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full md:w-auto bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <>
                         <svg
@@ -220,73 +274,115 @@ export function Contact() {
               )}
             </motion.div>
 
-            <motion.div variants={itemVariants} className="lg:col-span-2 bg-background p-6 rounded-xl shadow-sm border">
-              <h3 className="text-xl font-semibold mb-6">{currentContent.info.title}</h3>
+            <motion.div
+              variants={itemVariants}
+              className="lg:col-span-2 bg-background p-8 rounded-xl shadow-lg border relative overflow-hidden"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 -translate-x-1/2"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full translate-y-1/2 translate-x-1/2"></div>
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg text-primary">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium">{currentContent.info.email}</p>
-                  </div>
-                </div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-semibold mb-8 pb-2 border-b">{currentContent.info.title}</h3>
 
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg text-primary">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium">{currentContent.info.location}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-lg text-primary">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Phone</p>
-                    <p className="font-medium">{currentContent.info.phone}</p>
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-sm font-medium mb-4">{currentContent.info.social}</p>
-                  <div className="flex gap-4">
-                    <Button variant="outline" size="icon" asChild>
+                <div className="space-y-8">
+                  <motion.div whileHover={{ x: 5 }} className="flex items-start gap-4 group">
+                    <div className="bg-gradient-to-br from-primary to-purple-600 p-3 rounded-lg text-white group-hover:shadow-lg transition-shadow">
+                      <Mail className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Email</p>
                       <a
-                        href="https://linkedin.com/in/danielescorcia"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn"
+                        href={`mailto:${currentContent.info.email}`}
+                        className="font-medium hover:text-primary transition-colors"
                       >
-                        <Linkedin className="h-5 w-5" />
+                        {currentContent.info.email}
                       </a>
-                    </Button>
-                    <Button variant="outline" size="icon" asChild>
+                    </div>
+                  </motion.div>
+
+                  <motion.div whileHover={{ x: 5 }} className="flex items-start gap-4 group">
+                    <div className="bg-gradient-to-br from-primary to-purple-600 p-3 rounded-lg text-white group-hover:shadow-lg transition-shadow">
+                      <MapPin className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Location</p>
+                      <p className="font-medium">{currentContent.info.location}</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div whileHover={{ x: 5 }} className="flex items-start gap-4 group">
+                    <div className="bg-gradient-to-br from-primary to-purple-600 p-3 rounded-lg text-white group-hover:shadow-lg transition-shadow">
+                      <Phone className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Phone</p>
                       <a
-                        href="https://github.com/danielescorcia"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
+                        href={`tel:${currentContent.info.phone}`}
+                        className="font-medium hover:text-primary transition-colors"
                       >
-                        <Github className="h-5 w-5" />
+                        {currentContent.info.phone}
                       </a>
-                    </Button>
-                    <Button variant="outline" size="icon" asChild>
-                      <a
-                        href="https://instagram.com/danielescorcia"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram"
-                      >
-                        <Instagram className="h-5 w-5" />
-                      </a>
-                    </Button>
+                    </div>
+                  </motion.div>
+
+                  <div>
+                    <p className="text-sm font-medium mb-4">{currentContent.info.social}</p>
+                    <div className="flex gap-4">
+                      <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full border-primary/20 hover:border-primary hover:bg-primary/5"
+                          asChild
+                        >
+                          <a
+                            href="https://linkedin.com/in/danielescorcia"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="LinkedIn"
+                          >
+                            <Linkedin className="h-5 w-5 text-primary" />
+                          </a>
+                        </Button>
+                      </motion.div>
+
+                      <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full border-primary/20 hover:border-primary hover:bg-primary/5"
+                          asChild
+                        >
+                          <a
+                            href="https://github.com/danielescorcia"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub"
+                          >
+                            <Github className="h-5 w-5 text-primary" />
+                          </a>
+                        </Button>
+                      </motion.div>
+
+                      <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full border-primary/20 hover:border-primary hover:bg-primary/5"
+                          asChild
+                        >
+                          <a
+                            href="https://instagram.com/danielescorcia"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Instagram"
+                          >
+                            <Instagram className="h-5 w-5 text-primary" />
+                          </a>
+                        </Button>
+                      </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>
