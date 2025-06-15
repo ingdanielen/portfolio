@@ -193,14 +193,14 @@ export function Projects() {
                       </Badge>
                     ))}
                   </CardContent>
-                  <CardFooter className="flex gap-4 mt-auto">
-                    <Button asChild variant="default" size="sm">
+                  <CardFooter className="flex flex-col sm:flex-row gap-4 mt-auto">
+                    <Button asChild variant="default" size="sm" className="w-full sm:w-auto">
                       <Link href={project.liveUrl} target="_blank">
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Demo
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="sm">
+                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                       <Link href={project.githubUrl} target="_blank">
                         <Github className="mr-2 h-4 w-4" />
                         Código
@@ -243,20 +243,20 @@ export function Projects() {
                       </Badge>
                     ))}
                   </CardContent>
-                  <CardFooter className="flex gap-4 mt-auto">
-                    <Button asChild variant="default" size="sm">
+                  <CardFooter className="flex flex-col sm:flex-row gap-4 mt-auto">
+                    <Button asChild variant="default" size="sm" className="w-full sm:w-auto">
                       <Link href={project.liveUrl} target="_blank">
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Demo
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="sm">
+                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                       <Link href={project.githubUrl} target="_blank">
                         <Github className="mr-2 h-4 w-4" />
                         Frontend
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="sm">
+                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                       <Link href={project.backendUrl ?? ""} target="_blank">
                         <Github className="mr-2 h-4 w-4" />
                         Backend
