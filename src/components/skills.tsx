@@ -25,7 +25,8 @@ import {
   SiJira, 
   SiNotion,
   SiPython,
-  SiNodedotjs
+  SiNodedotjs,
+  SiBootstrap
 } from "react-icons/si"
 import { FaUikit, FaCode } from "react-icons/fa"
 import { TbApi } from "react-icons/tb"
@@ -67,6 +68,13 @@ export function Skills() {
             level: "Avanzado",
             color: "#F7DF1E",
             description: "ES6+, Promesas, Async/Await, DOM",
+          },
+          {
+            name: "Bootstrap",
+            icon: "/icons/bootstrap.svg",
+            level: "Avanzado",
+            color: "#7952B3",
+            description: "Grid System, Componentes, Utilidades",
           },
           {
             name: "TypeScript",
@@ -264,6 +272,13 @@ export function Skills() {
             level: "Advanced",
             color: "#F7DF1E",
             description: "ES6+, Promises, Async/Await, DOM",
+          },
+          {
+            name: "Bootstrap",
+            icon: "/icons/bootstrap.svg",
+            level: "Advanced",
+            color: "#7952B3",
+            description: "Grid System, Components, Utilities",
           },
           {
             name: "TypeScript",
@@ -467,6 +482,7 @@ export function Skills() {
       "HTML5": <SiHtml5 className="w-8 h-8" />,
       "CSS3": <SiCss3 className="w-8 h-8" />,
       "Tailwind CSS": <SiTailwindcss className="w-8 h-8" />,
+      "Bootstrap": <SiBootstrap className="w-8 h-8" />,
       "Redux": <SiRedux className="w-8 h-8" />,
       "Figma": <SiFigma className="w-8 h-8" />,
       "Adobe Photoshop": <SiAdobephotoshop className="w-8 h-8" />,

@@ -35,7 +35,7 @@ export function About() {
             "Tipado estático con TypeScript para código más robusto",
             "Optimización de rendimiento y SEO",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/zentro-figma.png",
         },
         {
           title: "Diseño Visual",
@@ -48,7 +48,7 @@ export function About() {
             "Creación de identidades visuales coherentes",
             "Animaciones y transiciones para mejorar la experiencia",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/pc-img.png",
         },
         {
           title: "Producción de Contenido",
@@ -61,7 +61,7 @@ export function About() {
             "Creación de contenido para redes sociales",
             "Narrativa visual y storytelling",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/ae-edits.png",
         },
         {
           title: "Estrategia Digital",
@@ -74,7 +74,7 @@ export function About() {
             "Gestión de contenido para diferentes plataformas",
             "Estrategias de comunicación visual efectiva",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/notion-img.png",
         },
       ],
       experience: [
@@ -134,7 +134,7 @@ export function About() {
             "Static typing with TypeScript for more robust code",
             "Performance and SEO optimization",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/zentro-figma.png",
         },
         {
           title: "Visual Design",
@@ -147,7 +147,7 @@ export function About() {
             "Creation of coherent visual identities",
             "Animations and transitions to enhance the experience",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/pc-img.png",
         },
         {
           title: "Content Production",
@@ -160,7 +160,7 @@ export function About() {
             "Content creation for social media",
             "Visual narrative and storytelling",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/ae-edits.png",
         },
         {
           title: "Digital Strategy",

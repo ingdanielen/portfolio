@@ -116,5 +116,5 @@ export default function ParticleBackground() {
     }
   }, [theme])
 
-  return <canvas ref={canvasRef} className="fixed inset-0 z-0 opacity-30" />
+  return <canvas ref={canvasRef} className="fixed inset-0 z-0 opacity-40" />
 }

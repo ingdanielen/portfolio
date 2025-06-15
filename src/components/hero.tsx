@@ -40,7 +40,7 @@ export function Hero({
   return (
     <section
       id="home"
-      className="lg:min-h-screen flex items-center justify-center pt-20 md:pt-10 relative overflow-hidden"
+      className="lg:min-h-screen flex items-center justify-center pt-16 md:pt-20 lg:pt-10 relative overflow-hidden"
     >
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
@@ -152,11 +152,11 @@ export function Hero({
           className=" flex justify-center" 
         >
           {useProfileImage ? (
-            <div className="relative w-full lg:max-w-xl md:max-w-lg max-w-md">
+            <div className="relative w-full lg:max-w-xl md:max-w-md max-w-md ">
               <Image
-                src="/me-no-bg2.png"
+                src="/me-no-bg3.png"
                 alt="Daniel Escorcia"
-                className="w-full h-full"
+                className="w-full h-full opacity-90"
                 width={4000}
                 height={4000}
                 priority

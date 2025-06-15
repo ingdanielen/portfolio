@@ -6,15 +6,32 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Play, ImageIcon, Palette, X } from "lucide-react"
 import Image from "next/image"
 
 export function ContentGallery() {
   const { language } = useLanguage()
   const ref = useRef(null)
+  const modalRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        setSelectedImage(null)
+      }
+    }
+
+    if (selectedImage) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [selectedImage])
 
   const content = {
     es: {
@@ -46,83 +63,68 @@ export function ContentGallery() {
   const videos = [
     {
       id: "video1",
-      thumbnail: "/placeholder.svg?height=300&width=500",
-      title: "Campaña Institucional Alegretto",
-      duration: "2:45",
+      thumbnail: "/projects/audit-img.jpg",
+      title: "Concurso de Piano - Festival Internacional PIANO FESTIBAQ",
+      description: "Primer concurso de piano para pianistas de la Costa y Colombia",
+      duration: "1:30",
+      link: "https://www.instagram.com/p/CyMjWzlr5v0/"
     },
     {
       id: "video2",
-      thumbnail: "/placeholder.svg?height=300&width=500",
-      title: "Tutorial React Hooks",
-      duration: "5:30",
+      thumbnail: "/projects/recital-img.jpg",
+      title: "Matrículas 2025-1 - Allegretto Salmo 150",
+      description: "¡Descubre tu talento musical! Piano, Guitarra, Batería, Canto y más",
+      duration: "1:00",
+      link: "https://www.instagram.com/reel/DEIQG8kJ6V2/"
     },
     {
       id: "video3",
-      thumbnail: "/placeholder.svg?height=300&width=500",
-      title: "Animación Logo Zentro",
+      thumbnail: "/projects/casio-img.jpg",
+      title: "CASIO Latinoamérica - Patrocinador Oficial",
+      description: "Premiando el talento musical con teclados CASIO Privia y CT-S1",
       duration: "0:45",
-    },
-    {
-      id: "video4",
-      thumbnail: "/placeholder.svg?height=300&width=500",
-      title: "Presentación Juegos Intercolegiados",
-      duration: "3:20",
-    },
+      link: "https://www.instagram.com/reel/CzZI23ZuVeE/"
+    }
   ]
 
   const graphics = [
     {
       id: "graphic1",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/projects/zentro-figma.png",
       title: "Branding Zentro",
+      description: "Branding para la escuela de música Zentro",
+      duration: "1:00",
+      link: "https://www.instagram.com/p/CyMjWzlr5v0/"
     },
     {
       id: "graphic2",
-      image: "/placeholder.svg?height=400&width=400",
-      title: "UI Kit Enterritorio",
+      image: "/projects/pc-img.png",
+      title: "UI Kit Poder Ciudadano",
+      description: "UI Kit para la aplicación Poder Ciudadano",
+      duration: "1:00",
+      link: "https://www.instagram.com/reel/CzZI23ZuVeE/"
     },
     {
       id: "graphic3",
-      image: "/placeholder.svg?height=400&width=400",
-      title: "Infografía Educativa",
-    },
-    {
-      id: "graphic4",
-      image: "/placeholder.svg?height=400&width=400",
-      title: "Poster Evento",
-    },
-    {
-      id: "graphic5",
-      image: "/placeholder.svg?height=400&width=400",
-      title: "Mockup App Móvil",
-    },
-    {
-      id: "graphic6",
-      image: "/placeholder.svg?height=400&width=400",
-      title: "Ilustración Digital",
-    },
+      image: "/projects/allegretto-figma.png",
+      title: "Allegretto Figma",
+      description: "Figma para la escuela de música Allegretto",
+      duration: "1:00",
+      link: "https://www.instagram.com/p/CyMjWzlr5v0/"
+    }
   ]
 
   const social = [
     {
       id: "social1",
-      image: "/placeholder.svg?height=600&width=400",
-      title: "Carrusel Instagram - Tips de Desarrollo",
+      image: "/projects/IMG_0173.jpg",
+      title: "Recitales musicales - Allegretto",
     },
     {
       id: "social2",
-      image: "/placeholder.svg?height=600&width=400",
-      title: "Reel - Proceso Creativo",
-    },
-    {
-      id: "social3",
-      image: "/placeholder.svg?height=600&width=400",
-      title: "Post LinkedIn - Tendencias Tech",
-    },
-    {
-      id: "social4",
-      image: "/placeholder.svg?height=600&width=400",
-      title: "Historia Instagram - Día a día",
+      image: "/projects/IMG_2057.jpg",
+      title: "Evento musical institucional",
+      link: "https://www.instagram.com/reel/CzZI23ZuVeE/"
     },
   ]
 
@@ -204,15 +206,28 @@ export function ContentGallery() {
                             height={300}
                             className="w-full h-64 object-cover"
                           />
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <h3 className="text-white font-medium">{video.title}</h3>
+                            {video.description && (
+                              <p className="text-white/80 text-sm mb-1">{video.description}</p>
+                            )}
+                            <p className="text-white/80 text-sm">{video.duration}</p>
+                          </div>
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="secondary" size="lg" className="rounded-full">
+                            <Button 
+                              variant="secondary" 
+                              size="lg" 
+                              className="rounded-full"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                if (video.link) {
+                                  window.open(video.link, '_blank')
+                                }
+                              }}
+                            >
                               <Play className="mr-2 h-4 w-4" />
                               {currentContent.viewProject}
                             </Button>
-                          </div>
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                            <h3 className="text-white font-medium">{video.title}</h3>
-                            <p className="text-white/80 text-sm">{video.duration}</p>
                           </div>
                         </CardContent>
                       </Card>
@@ -292,12 +307,13 @@ export function ContentGallery() {
       {/* Modal para imágenes */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl w-full">
+          <div ref={modalRef} className="relative max-w-4xl w-full">
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300"
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 flex items-center gap-2 bg-black/50 px-4 py-2 rounded-lg transition-colors"
             >
-              <X className="h-8 w-8" />
+              <X className="h-6 w-6" />
+              <span>{currentContent.close}</span>
             </button>
             <Image
               src={selectedImage}
