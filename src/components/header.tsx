@@ -24,6 +24,10 @@ export function Header() {
   const { theme, setTheme } = useTheme()
   const { language, setLanguage } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  // After mounting, we have access to the theme
+  useEffect(() => setMounted(true), [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,7 +111,7 @@ export function Header() {
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            {mounted && theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 
           <Button

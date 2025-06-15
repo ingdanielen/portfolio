@@ -3,7 +3,7 @@
 import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
@@ -169,24 +169,24 @@ export function ContentGallery() {
             <p className="text-lg text-muted-foreground">{currentContent.description}</p>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <Tabs defaultValue="videos" className="w-full">
+          <div className="relative z-10">
+            <Tabs defaultValue="videos">
               <TabsList className="grid w-full grid-cols-3 mb-8">
-                <TabsTrigger value="videos" className="flex items-center gap-2">
+                <TabsTrigger value="videos" className="flex items-center gap-2 relative z-20">
                   <Play className="h-4 w-4" />
                   <span className="hidden sm:inline">{currentContent.tabs.videos}</span>
                 </TabsTrigger>
-                <TabsTrigger value="graphics" className="flex items-center gap-2">
+                <TabsTrigger value="graphics" className="flex items-center gap-2 relative z-20">
                   <Palette className="h-4 w-4" />
                   <span className="hidden sm:inline">{currentContent.tabs.graphics}</span>
                 </TabsTrigger>
-                <TabsTrigger value="social" className="flex items-center gap-2">
+                <TabsTrigger value="social" className="flex items-center gap-2 relative z-20">
                   <ImageIcon className="h-4 w-4" />
                   <span className="hidden sm:inline">{currentContent.tabs.social}</span>
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="videos" className="mt-0">
+              <TabsContent value="videos">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {videos.map((video) => (
                     <motion.div
@@ -221,7 +221,7 @@ export function ContentGallery() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="graphics" className="mt-0">
+              <TabsContent value="graphics">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {graphics.map((graphic) => (
                     <motion.div
@@ -251,28 +251,32 @@ export function ContentGallery() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="social" className="mt-0">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <TabsContent value="social">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {social.map((item) => (
                     <motion.div
                       key={item.id}
                       variants={itemVariants}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
-                      onClick={() => setSelectedImage(item.image)}
-                      className="cursor-pointer"
                     >
                       <Card className="overflow-hidden">
-                        <CardContent className="p-0 relative">
+                        <CardContent className="p-0 relative group">
                           <Image
                             src={item.image || "/placeholder.svg"}
                             alt={item.title}
                             width={400}
                             height={600}
-                            className="w-full h-72 object-cover"
+                            className="w-full h-64 object-cover"
                           />
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-                            <h3 className="text-white text-sm font-medium">{item.title}</h3>
+                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Button variant="secondary" size="lg" className="rounded-full">
+                              <ImageIcon className="mr-2 h-4 w-4" />
+                              {currentContent.viewProject}
+                            </Button>
+                          </div>
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                            <h3 className="text-white font-medium">{item.title}</h3>
                           </div>
                         </CardContent>
                       </Card>
@@ -281,39 +285,28 @@ export function ContentGallery() {
                 </div>
               </TabsContent>
             </Tabs>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 
-      {/* Image Modal */}
+      {/* Modal para imágenes */}
       {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            className="relative max-w-4xl max-h-[90vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-2 right-2 bg-black/50 text-white hover:bg-black/70 z-10"
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+          <div className="relative max-w-4xl w-full">
+            <button
               onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300"
             >
-              <X className="h-5 w-5" />
-            </Button>
+              <X className="h-8 w-8" />
+            </button>
             <Image
-              src={selectedImage || "/placeholder.svg"}
-              alt="Enlarged view"
+              src={selectedImage}
+              alt="Selected image"
               width={800}
               height={800}
-              className="max-h-[90vh] w-auto object-contain"
+              className="w-full h-auto rounded-lg"
             />
-          </motion.div>
+          </div>
         </div>
       )}
     </section>

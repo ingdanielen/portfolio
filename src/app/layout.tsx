@@ -5,7 +5,6 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
 import { Analytics } from "@/components/analytics"
-import { CustomCursor } from "@/components/custom-cursor"
 import { Suspense } from "react"
 
 const inter = Inter({
@@ -36,7 +35,6 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <LanguageProvider>
             <Suspense fallback={null}>
-              <CustomCursor />
               {children}
               <Analytics />
             </Suspense>

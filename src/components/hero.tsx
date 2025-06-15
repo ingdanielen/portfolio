@@ -40,7 +40,7 @@ export function Hero({
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-13 md:pt-10 relative overflow-hidden"
+      className="lg:min-h-screen flex items-center justify-center pt-20 md:pt-10 relative overflow-hidden"
     >
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
@@ -48,7 +48,7 @@ export function Hero({
         <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 py-4 flex flex-col-reverse md:flex-row items-center justify-between gap-8">
+      <div className="container mx-auto px-4 lg:py-4 flex flex-col-reverse md:flex-row items-center justify-between gap-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -149,18 +149,18 @@ export function Hero({
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex-1 flex justify-center"
+          className=" flex justify-center" 
         >
           {useProfileImage ? (
-              <div className="relative w-full pb-4">
-                <Image
-                  src="/me-no-bg2.png"
-                  alt="Daniel Escorcia"
-                  className="w-full h-auto max-w-3xl"
-                  width={4000}
-                  height={4000}
-                  priority
-                />
+            <div className="relative w-full lg:max-w-xl md:max-w-lg max-w-md">
+              <Image
+                src="/me-no-bg2.png"
+                alt="Daniel Escorcia"
+                className="w-full h-full"
+                width={4000}
+                height={4000}
+                priority
+              />
             </div>
           ) : (
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-background shadow-xl">

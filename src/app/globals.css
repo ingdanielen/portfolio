@@ -62,18 +62,6 @@
   html {
     scroll-behavior: smooth;
   }
-
-  /* Hide default cursor when custom cursor is active */
-  body {
-    cursor: none;
-  }
-
-  /* But show default cursor on mobile */
-  @media (max-width: 768px) {
-    body {
-      cursor: auto;
-    }
-  }
 }
 
 /* Estilos para scrollbar personalizado */

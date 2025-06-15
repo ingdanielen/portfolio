@@ -79,30 +79,38 @@ export function About() {
       ],
       experience: [
         {
-          year: "2025",
-          title: "Front-End Developer",
-          company: "Naowee SAS",
-          description: "Desarrollo de plataformas web escalables usando Next.js, TypeScript, Redux y Tailwind CSS.",
-        },
-        {
           year: "2023-2024",
           title: "Web Developer & Content Producer",
           company: "Kymbo Devs SAS",
           description:
             "Desarrollo de e-commerce, landing pages y sitios corporativos usando WordPress y tecnologías low-code.",
         },
+        {
+          year: "2025",
+          title: "Front-End Developer",
+          company: "Naowee SAS",
+          description: "Desarrollo de plataformas web escalables usando Next.js, TypeScript, Redux y Tailwind CSS.",
+        },
+        
+
       ],
       education: [
         {
-          year: "2020-Actualidad",
-          title: "Ingeniería de Sistemas",
-          institution: "Universidad de la Costa",
+          year: "2017-2018",
+          title: "Técnico en Ejecución de Instrumentos Musicales",
+          institution: "EDA",
         },
         {
           year: "2018-2019",
           title: "Técnico en Sistemas y Redes Computarizadas",
           institution: "SENA",
         },
+        {
+          year: "2020-Actualidad",
+          title: "Ingeniería de Sistemas",
+          institution: "Universidad de la Costa",
+        },
+
       ],
     },
     en: {
@@ -184,6 +192,11 @@ export function About() {
         },
       ],
       education: [
+        {
+          year: "2017-2018",
+          title: "Technical in the Execution of Musical Instruments",
+          institution: "EDA",
+        },
         {
           year: "2020-Present",
           title: "Systems Engineering",

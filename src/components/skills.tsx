@@ -5,7 +5,32 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
+import { 
+  SiJavascript, 
+  SiTypescript, 
+  SiReact, 
+  SiNextdotjs, 
+  SiHtml5, 
+  SiCss3, 
+  SiTailwindcss, 
+  SiRedux, 
+  SiFigma, 
+  SiAdobephotoshop, 
+  SiAdobepremierepro, 
+  SiAdobeaftereffects, 
+  SiCanva, 
+  SiGithub, 
+  SiWordpress, 
+  SiJira, 
+  SiNotion,
+  SiPython,
+  SiNodedotjs
+} from "react-icons/si"
+import { FaUikit, FaCode } from "react-icons/fa"
+import { TbApi } from "react-icons/tb"
+import { BsKanbanFill } from "react-icons/bs"
+import React from "react"
 
 export function Skills() {
   const { language } = useLanguage()
@@ -19,8 +44,8 @@ export function Skills() {
       description: "Mi stack tecnológico y herramientas que utilizo para crear experiencias digitales excepcionales.",
       categories: [
         {
-          name: "Desarrollo Frontend",
-          key: "frontend",
+          name: "Desarrollo",
+          key: "development",
           description: "Tecnologías que uso para construir interfaces modernas y responsivas.",
         },
         {
@@ -35,7 +60,7 @@ export function Skills() {
         },
       ],
       skills: {
-        frontend: [
+        development: [
           {
             name: "JavaScript",
             icon: "/icons/javascript.svg",
@@ -61,7 +86,7 @@ export function Skills() {
             name: "Next.js",
             icon: "/icons/nextjs.svg",
             level: "Intermedio-Avanzado",
-            color: "#000000",
+            color: "#444444",
             description: "App Router, Server Components, API Routes",
           },
           {
@@ -91,6 +116,27 @@ export function Skills() {
             level: "Intermedio",
             color: "#764ABC",
             description: "Redux Toolkit, Thunks",
+          },
+          {
+            name: "Node.js",
+            icon: "/icons/nodejs.svg",
+            level: "Intermedio",
+            color: "#339933",
+            description: "Express, MongoDB, REST APIs",
+          },
+          {
+            name: "Python",
+            icon: "/icons/python.svg",
+            level: "Intermedio",
+            color: "#3572A5",
+            description: "Flask, Django, REST APIs",
+          },
+          {
+            name: "API Development",
+            icon: "/icons/api.svg",
+            level: "Intermedio-Avanzado",
+            color: "#6DB33F",
+            description: "REST, Autenticación, Documentación",  
           },
         ],
         design: [
@@ -130,6 +176,13 @@ export function Skills() {
             description: "Diseño rápido, Plantillas, Colaboración",
           },
           {
+            name: "CapCut",
+            icon: "/icons/capcut.svg",
+            level: "Intermedio-Avanzado",
+            color: "#9999FF",
+            description: "Edición de videos, Efectos, Transiciones",
+          },
+          {
             name: "UI/UX Design",
             icon: "/icons/ux.svg",
             level: "Intermedio-Avanzado",
@@ -142,7 +195,7 @@ export function Skills() {
             name: "Git & GitHub",
             icon: "/icons/github.svg",
             level: "Avanzado",
-            color: "#181717",
+            color: "#666666",
             description: "Branching, PR, CI/CD",
           },
           {
@@ -177,7 +230,7 @@ export function Skills() {
             name: "Notion",
             icon: "/icons/notion.svg",
             level: "Avanzado",
-            color: "#000000",
+            color: "#555555",
             description: "Bases de datos, Wikis, Gestión de proyectos",
           },
         ],
@@ -188,8 +241,8 @@ export function Skills() {
       description: "My technology stack and tools I use to create exceptional digital experiences.",
       categories: [
         {
-          name: "Frontend Development",
-          key: "frontend",
+          name: "Development",
+          key: "development",
           description: "Technologies I use to build modern and responsive interfaces.",
         },
         {
@@ -204,7 +257,7 @@ export function Skills() {
         },
       ],
       skills: {
-        frontend: [
+        development: [
           {
             name: "JavaScript",
             icon: "/icons/javascript.svg",
@@ -230,7 +283,7 @@ export function Skills() {
             name: "Next.js",
             icon: "/icons/nextjs.svg",
             level: "Intermediate-Advanced",
-            color: "#000000",
+            color: "#444444",
             description: "App Router, Server Components, API Routes",
           },
           {
@@ -260,6 +313,27 @@ export function Skills() {
             level: "Intermediate",
             color: "#764ABC",
             description: "Redux Toolkit, Thunks",
+          },
+          {
+            name: "Node.js",
+            icon: "/icons/nodejs.svg",
+            level: "Intermediate",
+            color: "#339933",
+            description: "Express, MongoDB, REST APIs",
+          },
+          {
+            name: "Python",
+            icon: "/icons/python.svg",
+            level: "Intermediate",
+            color: "#3572A5",
+            description: "Flask, Django, REST APIs",
+          },
+          {
+            name: "API Development",
+            icon: "/icons/api.svg",
+            level: "Intermediate-Advanced",
+            color: "#6DB33F",
+            description: "REST, Authentication, Documentation",
           },
         ],
         design: [
@@ -299,6 +373,13 @@ export function Skills() {
             description: "Quick design, Templates, Collaboration",
           },
           {
+            name: "CapCut",
+            icon: "/icons/capcut.svg",
+            level: "Intermediate-Advanced",
+            color: "#9999FF",
+            description: "Video editing, Effects, Transitions",
+          },
+          {
             name: "UI/UX Design",
             icon: "/icons/ux.svg",
             level: "Intermediate-Advanced",
@@ -311,7 +392,7 @@ export function Skills() {
             name: "Git & GitHub",
             icon: "/icons/github.svg",
             level: "Advanced",
-            color: "#181717",
+            color: "#666666",
             description: "Branching, PR, CI/CD",
           },
           {
@@ -346,7 +427,7 @@ export function Skills() {
             name: "Notion",
             icon: "/icons/notion.svg",
             level: "Advanced",
-            color: "#000000",
+            color: "#555555",
             description: "Databases, Wikis, Project management",
           },
         ],
@@ -377,9 +458,34 @@ export function Skills() {
     },
   }
 
-  // Placeholder SVG icons for skills
   const getSkillIcon = (name: string) => {
-    return (
+    const iconMap: { [key: string]: React.ReactNode } = {
+      "JavaScript": <SiJavascript className="w-8 h-8" />,
+      "TypeScript": <SiTypescript className="w-8 h-8" />,
+      "React": <SiReact className="w-8 h-8" />,
+      "Next.js": <SiNextdotjs className="w-8 h-8" />,
+      "HTML5": <SiHtml5 className="w-8 h-8" />,
+      "CSS3": <SiCss3 className="w-8 h-8" />,
+      "Tailwind CSS": <SiTailwindcss className="w-8 h-8" />,
+      "Redux": <SiRedux className="w-8 h-8" />,
+      "Figma": <SiFigma className="w-8 h-8" />,
+      "Adobe Photoshop": <SiAdobephotoshop className="w-8 h-8" />,
+      "Adobe Premiere": <SiAdobepremierepro className="w-8 h-8" />,
+      "Adobe After Effects": <SiAdobeaftereffects className="w-8 h-8" />,
+      "Canva": <SiCanva className="w-8 h-8" />,
+      "UI/UX Design": <FaUikit className="w-8 h-8" />,
+      "Git & GitHub": <SiGithub className="w-8 h-8" />,
+      "VS Code": <FaCode className="w-8 h-8" />,
+      "WordPress": <SiWordpress className="w-8 h-8" />,
+      "Jira": <SiJira className="w-8 h-8" />,
+      "Notion": <SiNotion className="w-8 h-8" />,
+      "Node.js": <SiNodedotjs className="w-8 h-8" />,
+      "Python": <SiPython className="w-8 h-8" />,
+      "API Development": <TbApi className="w-8 h-8" />,
+      "Scrum/Kanban": <BsKanbanFill className="w-8 h-8" />
+    }
+
+    return iconMap[name] || (
       <div
         className="w-12 h-12 flex items-center justify-center rounded-lg"
         style={{ backgroundColor: `${name.toLowerCase().includes("dark") ? "#ffffff10" : "#00000010"}` }}
@@ -427,11 +533,15 @@ export function Skills() {
             <p className="text-lg text-muted-foreground">{currentContent.description}</p>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <Tabs defaultValue="frontend" className="w-full">
+          <div className="relative z-10">
+            <Tabs defaultValue="development">
               <TabsList className="grid w-full grid-cols-3 mb-8">
                 {currentContent.categories.map((category) => (
-                  <TabsTrigger key={category.key} value={category.key}>
+                  <TabsTrigger 
+                    key={category.key} 
+                    value={category.key}
+                    className="relative z-20"
+                  >
                     {category.name}
                   </TabsTrigger>
                 ))}
@@ -455,7 +565,6 @@ export function Skills() {
                       >
                         <div className="bg-background rounded-xl border p-4 h-full flex flex-col items-center text-center hover:shadow-md transition-shadow">
                           <div className="w-16 h-16 mb-4 relative">
-                            {/* Placeholder for skill icon */}
                             <div
                               className="w-full h-full rounded-lg flex items-center justify-center"
                               style={{
@@ -463,7 +572,7 @@ export function Skills() {
                                 color: skill.color,
                               }}
                             >
-                              {skill.name.charAt(0)}
+                              {getSkillIcon(skill.name)}
                             </div>
                           </div>
                           <h3 className="font-medium mb-2">{skill.name}</h3>
@@ -471,12 +580,11 @@ export function Skills() {
                             {skill.level}
                           </Badge>
 
-                          {/* Skill tooltip */}
                           {hoveredSkill === `${key}-${index}` && (
                             <motion.div
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="absolute -bottom-2  transform -translate-x-1/2 translate-y-full  w-64 bg-popover text-popover-foreground p-4 rounded-lg shadow-lg border z-20"
+                              className="absolute -bottom-2 transform -translate-x-1/2 translate-y-full w-64 bg-popover text-popover-foreground p-4 rounded-lg shadow-lg border z-20"
                             >
                               <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 rotate-45 bg-popover border-t border-l"></div>
                               <h4 className="font-semibold mb-2">{skill.name}</h4>
@@ -490,7 +598,7 @@ export function Skills() {
                 </TabsContent>
               ))}
             </Tabs>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -10,10 +10,19 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Send, Mail, MapPin, Phone, Linkedin, Github, Instagram } from "lucide-react"
+import emailjs from '@emailjs/browser'
+import { contactEmailTemplate } from '@/email-templates/contact-template'
+import { Alert } from '@/components/ui/alert'
+
+// Configuración de EmailJS
+const EMAILJS_SERVICE_ID = 'service_d3cyncg' // Reemplaza con tu Service ID
+const EMAILJS_TEMPLATE_ID = 'template_sgww83i' // Reemplaza con tu Template ID
+const EMAILJS_PUBLIC_KEY = 'NDMLroegWmMJC49G-' // Reemplaza con tu Public Key
 
 export function Contact() {
   const { language } = useLanguage()
   const ref = useRef(null)
+  const formRef = useRef<HTMLFormElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [formState, setFormState] = useState({
     name: "",
@@ -23,6 +32,8 @@ export function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState("")
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
 
   const content = {
     es: {
@@ -37,6 +48,10 @@ export function Contact() {
         send: "Enviar mensaje",
         sending: "Enviando...",
         success: "¡Mensaje enviado! Te responderé lo antes posible.",
+        errors: {
+          required: "Este campo es obligatorio",
+          email: "Por favor, ingresa un correo electrónico válido",
+        }
       },
       info: {
         title: "Información de contacto",
@@ -57,6 +72,10 @@ export function Contact() {
         send: "Send message",
         sending: "Sending...",
         success: "Message sent! I'll get back to you as soon as possible.",
+        errors: {
+          required: "This field is required",
+          email: "Please enter a valid email address",
+        }
       },
       info: {
         title: "Contact information",
@@ -91,33 +110,106 @@ export function Contact() {
     },
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    })
+  const validateField = (name: string, value: string) => {
+    if (!value.trim()) {
+      return currentContent.form.errors.required
+    }
+    if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      return currentContent.form.errors.email
+    }
+    return ""
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormState(prev => ({
+      ...prev,
+      [name]: value,
+    }))
+    
+    // Clear error when user starts typing
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({
+        ...prev,
+        [name]: "",
+      }))
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError("")
+    setFieldErrors({})
+
+    // Validate all fields
+    const errors: Record<string, string> = {}
+    let hasErrors = false
+
+    Object.entries(formState).forEach(([name, value]) => {
+      const error = validateField(name, value)
+      if (error) {
+        errors[name] = error
+        hasErrors = true
+      }
+    })
+
+    if (hasErrors) {
+      setFieldErrors(errors)
+      return
+    }
+
     setIsSubmitting(true)
 
-    // Simulate form submission
-    setTimeout(() => {
+    // Verificar que las credenciales estén configuradas
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      setError(language === 'es' 
+        ? 'Error de configuración: Por favor, configura las credenciales de EmailJS.' 
+        : 'Configuration error: Please set up EmailJS credentials.')
       setIsSubmitting(false)
-      setIsSubmitted(true)
-      setFormState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      })
+      return
+    }
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-      }, 5000)
-    }, 1500)
+    try {
+      const templateParams = {
+        name: formState.name,
+        email: formState.email,
+        subject: formState.subject,
+        message: formState.message,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+      }
+
+      const result = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      )
+
+      if (result.status === 200) {
+        setIsSubmitting(false)
+        setIsSubmitted(true)
+        setFormState({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        })
+
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false)
+        }, 5000)
+      } else {
+        throw new Error('Error en el envío del correo')
+      }
+    } catch (error) {
+      console.error('Error sending email:', error)
+      setError(language === 'es' 
+        ? 'Error al enviar el mensaje. Por favor, intenta de nuevo.' 
+        : 'Error sending message. Please try again.')
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -177,7 +269,15 @@ export function Contact() {
                   </motion.p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                <form 
+                  ref={formRef} 
+                  onSubmit={handleSubmit} 
+                  className="space-y-6 relative z-10"
+                  noValidate
+                >
+                  {error && (
+                    <Alert variant="destructive">{error}</Alert>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">
@@ -188,9 +288,13 @@ export function Contact() {
                         name="name"
                         value={formState.name}
                         onChange={handleChange}
-                        required
-                        className="border-muted-foreground/20 focus:border-primary"
+                        className={`border-muted-foreground/20 focus:border-primary ${fieldErrors.name ? 'border-destructive' : ''}`}
                       />
+                      {fieldErrors.name && (
+                        <Alert variant="destructive" className="py-2 px-3 text-sm mt-1">
+                          {fieldErrors.name}
+                        </Alert>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm font-medium">
@@ -202,9 +306,13 @@ export function Contact() {
                         type="email"
                         value={formState.email}
                         onChange={handleChange}
-                        required
-                        className="border-muted-foreground/20 focus:border-primary"
+                        className={`border-muted-foreground/20 focus:border-primary ${fieldErrors.email ? 'border-destructive' : ''}`}
                       />
+                      {fieldErrors.email && (
+                        <Alert variant="destructive" className="py-2 px-3 text-sm mt-1">
+                          {fieldErrors.email}
+                        </Alert>
+                      )}
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -216,9 +324,13 @@ export function Contact() {
                       name="subject"
                       value={formState.subject}
                       onChange={handleChange}
-                      required
-                      className="border-muted-foreground/20 focus:border-primary"
+                      className={`border-muted-foreground/20 focus:border-primary ${fieldErrors.subject ? 'border-destructive' : ''}`}
                     />
+                    {fieldErrors.subject && (
+                      <Alert variant="destructive" className="py-2 px-3 text-sm mt-1">
+                        {fieldErrors.subject}
+                      </Alert>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
@@ -230,9 +342,13 @@ export function Contact() {
                       rows={6}
                       value={formState.message}
                       onChange={handleChange}
-                      required
-                      className="border-muted-foreground/20 focus:border-primary resize-none"
+                      className={`border-muted-foreground/20 focus:border-primary resize-none ${fieldErrors.message ? 'border-destructive' : ''}`}
                     />
+                    {fieldErrors.message && (
+                      <Alert variant="destructive" className="py-2 px-3 text-sm mt-1">
+                        {fieldErrors.message}
+                      </Alert>
+                    )}
                   </div>
                   <Button
                     type="submit"
