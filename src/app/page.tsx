@@ -1,7 +1,7 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
-import { Projects } from "@/components/projects"
+import { Projects } from "@/components/projects"  // Asegúrate de que el componente se exporta correctamente
 import { Skills } from "@/components/skills"
 import { ContentGallery } from "@/components/content-gallery"
 import { Contact } from "@/components/contact"

@@ -173,7 +173,7 @@ export function About() {
             "Content management for different platforms",
             "Effective visual communication strategies",
           ],
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/projects/notion-img.png",
         },
       ],
       experience: [
@@ -230,6 +230,30 @@ export function About() {
       y: 0,
       transition: {
         duration: 0.5,
+      },
+    },
+  }
+
+  const tabContentVariants = {
+    enter: {
+      opacity: 0,
+      x: 20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    center: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: -20,
+      transition: {
+        duration: 0.3,
       },
     },
   }
@@ -295,11 +319,12 @@ export function About() {
             </div>
 
             <motion.div
-              variants={itemVariants}
               className="lg:col-span-2 bg-background rounded-xl shadow-lg border overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              key={activeTab}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              variants={tabContentVariants}
             >
               <div className="relative h-48 md:h-64 overflow-hidden">
                 <Image
