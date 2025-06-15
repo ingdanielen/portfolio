@@ -535,12 +535,12 @@ export function Skills() {
 
           <div className="relative z-10">
             <Tabs defaultValue="development">
-              <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-2 mb-8">
                 {currentContent.categories.map((category) => (
                   <TabsTrigger 
                     key={category.key} 
                     value={category.key}
-                    className="relative z-20"
+                    className="relative z-20 w-full"
                   >
                     {category.name}
                   </TabsTrigger>
