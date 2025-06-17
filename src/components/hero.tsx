@@ -3,7 +3,8 @@
 import { useLanguage } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, FileText } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, FileText, Code2, Database, Cpu, Terminal, Layout, Server } from "lucide-react";
+import { SiReact, SiTypescript } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -149,18 +150,135 @@ export function Hero({
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className=" flex justify-center" 
+          className="flex justify-center relative"
         >
+          {/* Floating Tech Icons */}
+          <motion.div
+            animate={{
+              y: [0, -8, 0],
+              x: [0, 4, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute -top-1 -left-1 bg-gray-500/10 p-2 rounded-full"
+          >
+            <Code2 className="h-4 w-4 text-gray-500" />
+          </motion.div>
+
+          <motion.div
+            animate={{
+              y: [0, 6, 0],
+              x: [0, -4, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute -bottom-1 -right-1 bg-gray-500/10 p-4 rounded-full blur-[1px]"
+          >
+            <Database className="h-7 w-7 text-gray-500" />
+          </motion.div>
+
+          <motion.div
+            animate={{
+              y: [0, -10, 0],
+              x: [0, -6, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-1/2 -right-2 bg-gray-500/10 p-5 rounded-full z-10"
+          >
+            <Cpu className="h-8 w-8 text-gray-500" />
+          </motion.div>
+
+          <motion.div
+            animate={{
+              y: [0, 10, 0],
+              x: [0, 6, 0],
+            }}
+            transition={{
+              duration: 4.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-1/2 -left-2 bg-gray-500/10 p-2 rounded-full blur-sm "
+          >
+            <Terminal className="h-4 w-4 text-gray-500" />
+          </motion.div>
+
+
+
+          <motion.div
+            animate={{
+              y: [0, 6, 0],
+              x: [0, -4, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute -bottom-2 left-1/3 bg-gray-500/10 p-5 rounded-full blur-sm"
+          >
+            <Server className="h-8 w-8 text-gray-500" />
+          </motion.div>
+
+          <motion.div
+            animate={{
+              y: [0, -8, 0],
+              x: [0, 4, 0],
+            }}
+            transition={{
+              duration: 4.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-10 right-16 bg-gray-500/10 p-4 rounded-full"
+          >
+            <SiReact className="h-10 w-10 text-blue-900" />
+          </motion.div>
+
+          <motion.div
+            animate={{
+              y: [0, 8, 0],
+              x: [0, -4, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-44  left-1 bg-gray-500/10 p-4 rounded-full blur-[1px]"
+          >
+            <SiTypescript className="h-7 w-7 text-gray-500" />
+          </motion.div>
+
           {useProfileImage ? (
             <div className="relative w-full lg:max-w-xl md:max-w-md max-w-md ">
               <Image
-                src="/me-no-bg3.png"
+                src="/hero-no-bg.png"
                 alt="Daniel Escorcia"
-                className="w-full h-full opacity-90"
+                className="w-full h-full opacity-90 dark:block hidden"
                 width={4000}
                 height={4000}
                 priority
               />
+              <Image
+                src="/lighthero-no-bg.png"
+                alt="Daniel Escorcia"
+                className="w-full h-full opacity-90 dark:hidden block"
+                width={4000}
+                height={4000}
+                priority
+              />
+              x
             </div>
           ) : (
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-background shadow-xl">
