@@ -8,13 +8,14 @@ type Language = "es" | "en"
 interface LanguageContextType {
   language: Language
   setLanguage: (language: Language) => void
+  isReady: boolean
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // Intentar obtener el idioma guardado en localStorage, o usar español por defecto
   const [language, setLanguageState] = useState<Language>("es")
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
     // Solo acceder a localStorage en el cliente
@@ -25,7 +26,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       // Detectar idioma del navegador como alternativa
       const browserLanguage = navigator.language.startsWith("es") ? "es" : "en"
       setLanguageState(browserLanguage)
+      // Guardar el idioma detectado
+      localStorage.setItem("language", browserLanguage)
     }
+    setIsReady(true)
   }, [])
 
   const setLanguage = (newLanguage: Language) => {
@@ -33,7 +37,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("language", newLanguage)
   }
 
-  return <LanguageContext.Provider value={{ language, setLanguage }}>{children}</LanguageContext.Provider>
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, isReady }}>
+      {children}
+    </LanguageContext.Provider>
+  )
 }
 
 export function useLanguage() {

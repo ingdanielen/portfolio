@@ -13,7 +13,7 @@ export function Hero({
 }: {
   useProfileImage?: boolean;
 }) {
-  const { language } = useLanguage();
+  const { language, isReady } = useLanguage();
 
   const content = {
     es: {
@@ -36,7 +36,15 @@ export function Hero({
     },
   };
 
-  const currentContent = content[language as keyof typeof content];
+  const currentContent = content[language as keyof typeof content] || content.es;
+
+  // Función para obtener la URL del PDF según el idioma
+  const getPdfUrl = () => {
+    if (!isReady) return "/pdf/Daniel Escorcia - Desarrollador Web.pdf"; // Default
+    return language === "es" 
+      ? "/pdf/Daniel Escorcia - Desarrollador Web.pdf" 
+      : "/pdf/Daniel Escorcia - Web Developer.pdf";
+  };
 
   return (
     <section
@@ -107,7 +115,11 @@ export function Hero({
               size="lg"
               className="rounded-full"
             >
-              <Link href="/cv-daniel-escorcia.pdf" target="_blank" download>
+              <Link 
+                href={getPdfUrl()} 
+                target="_blank" 
+                download
+              >
                 <FileText className="mr-2 h-4 w-4" />
                 {currentContent.resume}
               </Link>
