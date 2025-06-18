@@ -7,6 +7,7 @@ import { ArrowDown, Github, Linkedin, Mail, FileText, Code2, Database, Cpu, Term
 import { SiReact, SiTypescript } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
+import { heroContent } from "@/constants";
 
 export function Hero({
   useProfileImage = false,
@@ -15,28 +16,7 @@ export function Hero({
 }) {
   const { language, isReady } = useLanguage();
 
-  const content = {
-    es: {
-      greeting: "¡Hola! Soy",
-      name: "Daniel Escorcia",
-      tagline: "Desarrollador Frontend + Creador de Contenido",
-      description:
-        "Construyo experiencias digitales modernas y creativas que combinan código limpio con diseño impactante.",
-      cta: "Conoce mi trabajo",
-      resume: "Descargar CV",
-    },
-    en: {
-      greeting: "Hi! I'm",
-      name: "Daniel Escorcia",
-      tagline: "Frontend Developer + Content Creator",
-      description:
-        "I build modern and creative digital experiences that combine clean code with impactful design.",
-      cta: "See my work",
-      resume: "Download CV",
-    },
-  };
-
-  const currentContent = content[language as keyof typeof content] || content.es;
+  const currentContent = heroContent[language as keyof typeof heroContent] || heroContent.es;
 
   // Función para obtener la URL del PDF según el idioma
   const getPdfUrl = () => {

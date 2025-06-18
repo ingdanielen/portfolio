@@ -4,10 +4,12 @@ import { useLanguage } from "./language-provider"
 import { motion } from "framer-motion"
 import { Github, Linkedin, Twitter, Heart } from "lucide-react"
 import Link from "next/link"
+import { footerContent, socialLinks } from "@/constants"
 
 export default function Footer() {
   const { language } = useLanguage()
   const currentYear = new Date().getFullYear()
+  const currentContent = footerContent[language as keyof typeof footerContent]
 
   return (
     <footer className="p-8 border-t">
@@ -32,18 +34,14 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex items-center space-x-4 mb-4 md:mb-0"
           >
-            <Link href="https://github.com/ingdanielen" target="_blank" rel="noopener noreferrer">
-              <Github className="h-5 w-5 hover:text-primary transition-colors" />
-              <span className="sr-only">GitHub</span>
-            </Link>
-            <Link href="https://www.linkedin.com/in/daniel-escorcia-b68182269/" target="_blank" rel="noopener noreferrer">
-              <Linkedin className="h-5 w-5 hover:text-primary transition-colors" />
-              <span className="sr-only">LinkedIn</span>
-            </Link>
-            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <Twitter className="h-5 w-5 hover:text-primary transition-colors" />
-              <span className="sr-only">Twitter</span>
-            </Link>
+            {socialLinks.map((social) => (
+              <Link key={social.name} href={social.url} target="_blank" rel="noopener noreferrer">
+                {social.icon === "github" && <Github className="h-5 w-5 hover:text-primary transition-colors" />}
+                {social.icon === "linkedin" && <Linkedin className="h-5 w-5 hover:text-primary transition-colors" />}
+                {social.icon === "twitter" && <Twitter className="h-5 w-5 hover:text-primary transition-colors" />}
+                <span className="sr-only">{social.name}</span>
+              </Link>
+            ))}
           </motion.div>
 
           <motion.div
@@ -53,10 +51,10 @@ export default function Footer() {
             className="text-sm text-muted-foreground text-center md:text-right"
           >
             <p>
-              &copy; {currentYear} Daniel Escorcia. {language === "es" ? "Todos los derechos reservados." : "All rights reserved."}
+              &copy; {currentYear} Daniel Escorcia. {currentContent.rights}
             </p>
             <p className="flex items-center justify-center md:justify-end gap-1 mt-1">
-              {language === "es" ? "Hecho con" : "Made with"} <Heart className="h-3 w-3 text-red-500 fill-red-500" /> {language === "es" ? "por" : "by"} Daniel
+              {currentContent.madeWith} <Heart className="h-3 w-3 text-red-500 fill-red-500" /> {currentContent.by} Daniel
               Escorcia
             </p>
           </motion.div>

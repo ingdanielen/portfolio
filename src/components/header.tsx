@@ -8,15 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Sun, Moon, Globe } from "lucide-react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-
-const navItems = [
-  { name: "inicio", href: "#home", nameEn: "home" },
-  { name: "sobre mí", href: "#about", nameEn: "about" },
-  { name: "proyectos", href: "#projects", nameEn: "projects" },
-  { name: "habilidades", href: "#skills", nameEn: "skills" },
-  { name: "contenido", href: "#content", nameEn: "content" },
-  { name: "contacto", href: "#contact", nameEn: "contact" },
-]
+import { navItems } from "@/constants"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
