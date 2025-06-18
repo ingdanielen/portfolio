@@ -32,11 +32,11 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex items-center space-x-4 mb-4 md:mb-0"
           >
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/ingdanielen" target="_blank" rel="noopener noreferrer">
               <Github className="h-5 w-5 hover:text-primary transition-colors" />
               <span className="sr-only">GitHub</span>
             </Link>
-            <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://www.linkedin.com/in/daniel-escorcia-b68182269/" target="_blank" rel="noopener noreferrer">
               <Linkedin className="h-5 w-5 hover:text-primary transition-colors" />
               <span className="sr-only">LinkedIn</span>
             </Link>

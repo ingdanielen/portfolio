@@ -453,7 +453,7 @@ export function Contact() {
                           asChild
                         >
                           <a
-                            href="https://linkedin.com/in/danielescorcia"
+                            href="https://www.linkedin.com/in/daniel-escorcia-b68182269/"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="LinkedIn"
@@ -471,7 +471,7 @@ export function Contact() {
                           asChild
                         >
                           <a
-                            href="https://github.com/danielescorcia"
+                            href="https://github.com/ingdanielen"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="GitHub"
@@ -489,7 +489,7 @@ export function Contact() {
                           asChild
                         >
                           <a
-                            href="https://instagram.com/danielescorcia"
+                            href="hhttps://www.instagram.com/daniel.ricardopr/"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Instagram"

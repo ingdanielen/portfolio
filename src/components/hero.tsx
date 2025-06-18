@@ -122,7 +122,7 @@ export function Hero({
           >
             <Button variant="ghost" size="icon" asChild>
               <Link
-                href="https://github.com/danielescorcia"
+                href="https://github.com/ingdanielen"
                 target="_blank"
                 aria-label="GitHub"
               >
@@ -131,7 +131,7 @@ export function Hero({
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <Link
-                href="https://linkedin.com/in/danielescorcia"
+                href="https://www.linkedin.com/in/daniel-escorcia-b68182269/"
                 target="_blank"
                 aria-label="LinkedIn"
               >
@@ -139,7 +139,7 @@ export function Hero({
               </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <Link href="mailto:danieles1217@gmail.com" aria-label="Email">
+              <Link href="#contact" aria-label="Email">
                 <Mail className="h-5 w-5" />
               </Link>
             </Button>
@@ -165,7 +165,7 @@ export function Hero({
             }}
             className="absolute -top-1 -left-1 bg-gray-500/10 p-2 rounded-full"
           >
-            <Code2 className="h-4 w-4 text-gray-500" />
+            <Code2 className="h-3 w-3 text-gray-500" />
           </motion.div>
 
           <motion.div
@@ -178,9 +178,9 @@ export function Hero({
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute -bottom-1 -right-1 bg-gray-500/10 p-4 rounded-full blur-[1px]"
+            className="absolute -bottom-1 -right-1 bg-gray-500/10 p-3 rounded-full blur-[1px]"
           >
-            <Database className="h-7 w-7 text-gray-500" />
+            <Database className="h-5 w-5 text-gray-500" />
           </motion.div>
 
           <motion.div
@@ -193,9 +193,9 @@ export function Hero({
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-1/2 -right-2 bg-gray-500/10 p-5 rounded-full z-10"
+            className="absolute top-1/2 -right-2 bg-gray-500/10 p-4 rounded-full z-10"
           >
-            <Cpu className="h-8 w-8 text-gray-500" />
+            <Cpu className="h-6 w-6 text-gray-500" />
           </motion.div>
 
           <motion.div
@@ -208,26 +208,9 @@ export function Hero({
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-1/2 -left-2 bg-gray-500/10 p-2 rounded-full blur-sm "
+            className="absolute top-1/2 -left-2 bg-gray-500/10 p-2 rounded-full blur-sm"
           >
-            <Terminal className="h-4 w-4 text-gray-500" />
-          </motion.div>
-
-
-
-          <motion.div
-            animate={{
-              y: [0, 6, 0],
-              x: [0, -4, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute -bottom-2 left-1/3 bg-gray-500/10 p-5 rounded-full blur-sm"
-          >
-            <Server className="h-8 w-8 text-gray-500" />
+            <Terminal className="h-3 w-3 text-gray-500" />
           </motion.div>
 
           <motion.div
@@ -240,9 +223,9 @@ export function Hero({
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-10 right-16 bg-gray-500/10 p-4 rounded-full"
+            className="absolute top-10 right-16 bg-gray-500/10 p-3 rounded-full"
           >
-            <SiReact className="h-10 w-10 text-blue-900" />
+            <SiReact className="h-8 w-8 text-blue-900" />
           </motion.div>
 
           <motion.div
@@ -255,15 +238,15 @@ export function Hero({
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-44  left-1 bg-gray-500/10 p-4 rounded-full blur-[1px]"
+            className="absolute bottom-44 left-1 bg-gray-500/10 p-3 rounded-full blur-[1px]"
           >
-            <SiTypescript className="h-7 w-7 text-gray-500" />
+            <SiTypescript className="h-5 w-5 text-gray-500" />
           </motion.div>
 
           {useProfileImage ? (
             <div className="relative w-full lg:max-w-xl md:max-w-md max-w-md ">
               <Image
-                src="/hero-no-bg.png"
+                src="/hero-dark.png"
                 alt="Daniel Escorcia"
                 className="w-full h-full opacity-90 dark:block hidden"
                 width={4000}
@@ -271,14 +254,14 @@ export function Hero({
                 priority
               />
               <Image
-                src="/lighthero-no-bg.png"
+                src="/hero-light.png"
                 alt="Daniel Escorcia"
                 className="w-full h-full opacity-90 dark:hidden block"
                 width={4000}
                 height={4000}
                 priority
               />
-              x
+              
             </div>
           ) : (
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-background shadow-xl">
