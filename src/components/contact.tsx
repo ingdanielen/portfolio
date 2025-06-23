@@ -1,18 +1,15 @@
 "use client"
 
 import { useLanguage } from "@/components/language-provider"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Linkedin, Github, Instagram } from "lucide-react"
-import emailjs from "@emailjs/browser"
-import { contactContent } from "@/constants"
 import { Alert } from '@/components/ui/alert'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { contactContent } from "@/constants"
+import emailjs from "@emailjs/browser"
+import { motion, useInView } from "framer-motion"
+import { Github, Instagram, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react"
+import { useRef, useState } from "react"
 
 // Configuración de EmailJS
 const EMAILJS_SERVICE_ID = 'service_d3cyncg' // Reemplaza con tu Service ID

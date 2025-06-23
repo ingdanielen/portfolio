@@ -1,24 +1,27 @@
 "use client"
 
 import { useLanguage } from "@/components/language-provider"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { ChevronDown, ChevronUp, Calendar, MapPin, GraduationCap, ChevronRight } from "lucide-react"
+import { Code, Palette, Video, Lightbulb, ChevronRight } from "lucide-react"
 import Image from "next/image"
-import { aboutContent, getAboutIcons } from "@/constants"
+import { aboutContent } from "@/constants/about"
+
+const iconMap = {
+  code: <Code className="h-6 w-6" />,
+  palette: <Palette className="h-6 w-6" />,
+  video: <Video className="h-6 w-6" />,
+  lightbulb: <Lightbulb className="h-6 w-6" />,
+}
 
 export function About() {
   const { language } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [activeTab, setActiveTab] = useState(0)
-  const [expandedJourney, setExpandedJourney] = useState(false)
+
   const currentContent = aboutContent[language as keyof typeof aboutContent]
-  const icons = getAboutIcons()
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -42,10 +45,23 @@ export function About() {
   }
 
   const tabContentVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: {
+    enter: {
+      opacity: 0,
+      x: 20,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    center: {
       opacity: 1,
       x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: -20,
       transition: {
         duration: 0.3,
       },
@@ -53,14 +69,22 @@ export function About() {
   }
 
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-20 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-20 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-primary/10 rounded-full opacity-20" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/10 rounded-full opacity-20" />
+      </div>
+
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={containerVariants}
-          className="space-y-12"
+          className="space-y-16"
         >
           <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto">
             <div className="inline-block mb-4">
@@ -71,149 +95,177 @@ export function About() {
                 </div>
               </div>
             </div>
-            <p className="text-lg text-muted-foreground mb-4">{currentContent.subtitle}</p>
-            <p className="text-muted-foreground">{currentContent.description}</p>
-            <p className="text-muted-foreground mt-4 font-medium">{currentContent.passion}</p>
+            <h3 className="text-xl text-primary mb-4">{currentContent.subtitle}</h3>
+            <p className="text-lg text-muted-foreground mb-4">{currentContent.description}</p>
+            <p className="text-lg font-medium">{currentContent.passion}</p>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Skills Tabs */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold">{currentContent.tabs[activeTab].title}</h3>
-              
-              <div className="flex flex-col space-y-2">
-                {currentContent.tabs.map((tab, index) => (
-                  <motion.button
-                    key={index}
-                    onClick={() => setActiveTab(index)}
-                    className={`w-full text-left p-4 rounded-lg flex items-center gap-3 transition-all ${
-                      activeTab === index ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-muted/50"
-                    }`}
-                    whileHover={{ x: activeTab === index ? 0 : 5 }}
-                  >
-                    <div
-                      className={`p-2 rounded-md ${
-                        activeTab === index ? "bg-white/20" : "bg-primary/10 text-primary"
+          <motion.div variants={containerVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1 space-y-4">
+              <div className="sticky top-24">
+                <h3 className="text-2xl font-semibold mb-6 border-b pb-2">{currentContent.tabs[0].title}</h3>
+                <div className="space-y-2">
+                  {currentContent.tabs.map((tab, index) => (
+                    <motion.button
+                      key={index}
+                      onClick={() => setActiveTab(index)}
+                      className={`w-full text-left p-4 rounded-lg flex items-center gap-3 transition-all ${
+                        activeTab === index ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-muted/50"
                       }`}
+                      whileHover={{ x: activeTab === index ? 0 : 5 }}
                     >
-                      {icons[tab.iconKey as keyof typeof icons]}
-                    </div>
-                    <span className="font-medium">{tab.title}</span>
-                    <ChevronRight className="ml-auto h-4 w-4" />
-                  </motion.button>
-                ))}
+                      <div
+                        className={`p-2 rounded-md ${
+                          activeTab === index ? "bg-white/20" : "bg-primary/10 text-primary"
+                        }`}
+                      >
+                        {iconMap[tab.iconKey as keyof typeof iconMap]}
+                      </div>
+                      <span className="font-medium">{tab.title}</span>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Tab Content */}
             <motion.div
+              className="lg:col-span-2 bg-background rounded-xl shadow-lg border overflow-hidden"
               key={activeTab}
+              initial="enter"
+              animate="center"
+              exit="exit"
               variants={tabContentVariants}
-              initial="hidden"
-              animate="visible"
-              className="space-y-6"
             >
-              <div className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {currentContent.tabs[activeTab].description}
-                </p>
-                
-                <ul className="space-y-2">
-                  {currentContent.tabs[activeTab].points.map((point, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-sm text-muted-foreground">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="relative h-48 rounded-lg overflow-hidden">
+              <div className="relative h-48 md:h-64 overflow-hidden">
                 <Image
-                  src={currentContent.tabs[activeTab].image}
+                  src={currentContent.tabs[activeTab].image || "/placeholder.svg"}
                   alt={currentContent.tabs[activeTab].title}
                   fill
                   className="object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-white mb-2">{currentContent.tabs[activeTab].title}</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-lg mb-6">{currentContent.tabs[activeTab].description}</p>
+                <ul className="space-y-3">
+                  {currentContent.tabs[activeTab].points.map((point, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-start gap-2"
+                    >
+                      <ChevronRight className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{point}</span>
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Journey Section */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <div className="text-center">
-              <h3 className="text-2xl font-semibold mb-2">{currentContent.journey}</h3>
-              <p className="text-muted-foreground">{currentContent.journeyDescription}</p>
-            </div>
+          <motion.div variants={containerVariants} className="mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <motion.div variants={itemVariants} className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-briefcase"
+                    >
+                      <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold">Experiencia</h3>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Experience */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-primary" />
-                    Experiencia
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {currentContent.experience.slice(0, expandedJourney ? undefined : 2).map((exp, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-primary">{exp.year}</span>
-                        <span className="text-sm text-muted-foreground">•</span>
-                        <span className="text-sm font-medium">{exp.company}</span>
+                <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-primary/30 before:to-transparent">
+                  {currentContent.experience.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      className="relative flex items-start group"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.2 }}
+                    >
+                      <div className="absolute left-0 md:left-1/2 ml-5 md:-ml-3.5 mt-7 h-7 w-7 rounded-full border-2 border-primary bg-background group-hover:border-primary/70 group-hover:bg-primary/10 transition-colors duration-300"></div>
+                      <div className="pl-12 md:pl-0 md:pr-10 md:max-w-[50%] md:ml-auto group-odd:md:ml-0 group-odd:md:mr-auto group-odd:md:pl-10 group-odd:md:pr-0">
+                        <div className="p-4 bg-background rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                          <div className="flex flex-wrap justify-between items-center mb-1">
+                            <span className="font-medium text-primary">{item.year}</span>
+                            <span className="text-sm text-muted-foreground">{item.company}</span>
+                          </div>
+                          <div className="text-lg font-semibold mb-1">{item.title}</div>
+                          <div className="text-muted-foreground">{item.description}</div>
+                        </div>
                       </div>
-                      <h4 className="font-semibold">{exp.title}</h4>
-                      <p className="text-sm text-muted-foreground">{exp.description}</p>
-                    </div>
+                    </motion.div>
                   ))}
-                </CardContent>
-              </Card>
+                </div>
+              </motion.div>
 
-              {/* Education */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <GraduationCap className="h-5 w-5 text-primary" />
-                    Educación
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {currentContent.education.slice(0, expandedJourney ? undefined : 2).map((edu, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-primary">{edu.year}</span>
-                        <span className="text-sm text-muted-foreground">•</span>
-                        <span className="text-sm font-medium">{edu.institution}</span>
+              <motion.div variants={itemVariants} className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-graduation-cap"
+                    >
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                      <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold">Educación</h3>
+                </div>
+
+                <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-primary/30 before:to-transparent">
+                  {currentContent.education.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      className="relative flex items-start group"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.2 }}
+                    >
+                      <div className="absolute left-0 md:left-1/2 ml-5 md:-ml-3.5 mt-7 h-7 w-7 rounded-full border-2 border-primary bg-background group-hover:border-primary/70 group-hover:bg-primary/10 transition-colors duration-300"></div>
+                      <div className="pl-12 md:pl-0 md:pr-10 md:max-w-[50%] md:ml-auto group-odd:md:ml-0 group-odd:md:mr-auto group-odd:md:pl-10 group-odd:md:pr-0">
+                        <div className="p-4 bg-background rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                          <div className="flex flex-wrap justify-between items-center mb-1">
+                            <span className="font-medium text-primary">{item.year}</span>
+                            <span className="text-sm text-muted-foreground">{item.institution}</span>
+                          </div>
+                          <div className="text-lg font-semibold">{item.title}</div>
+                        </div>
                       </div>
-                      <h4 className="font-semibold">{edu.title}</h4>
-                    </div>
+                    </motion.div>
                   ))}
-                </CardContent>
-              </Card>
+                </div>
+              </motion.div>
             </div>
-
-            {currentContent.experience.length > 2 && (
-              <div className="text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setExpandedJourney(!expandedJourney)}
-                  className="rounded-full"
-                >
-                  {expandedJourney ? (
-                    <>
-                      <ChevronUp className="mr-2 h-4 w-4" />
-                      {language === "es" ? "Mostrar menos" : "Show less"}
-                    </>
-                  ) : (
-                    <>
-                      <ChevronDown className="mr-2 h-4 w-4" />
-                      {currentContent.readMore}
-                    </>
-                  )}
-                </Button>
-              </div>
-            )}
           </motion.div>
         </motion.div>
       </div>
