@@ -63,6 +63,7 @@ export const aboutContent = {
       },
     ],
     experience: [
+
       {
         year: "2023-2024",
         title: "Web Developer & Content Producer",
@@ -71,10 +72,17 @@ export const aboutContent = {
           "Desarrollo de e-commerce, landing pages y sitios corporativos usando WordPress y tecnologías low-code.",
       },
       {
-        year: "2025",
+        year: "2024-2025",
         title: "Front-End Developer",
         company: "Naowee SAS",
         description: "Desarrollo de plataformas web escalables usando Next.js, TypeScript, Redux y Tailwind CSS.",
+      },
+      {
+        year: "2025-Actualidad",
+        title: "Frontend Developer",
+        company: "Litsight",
+        description:
+          "Desarrollo de plataforma orientada a liderazgo, pruebas DISC-LCC y gestión de talento humano.",
       },
     ],
     education: [
@@ -159,6 +167,13 @@ export const aboutContent = {
       },
     ],
     experience: [
+      {
+        year: "2024-Present",
+        title: "Frontend Developer",
+        company: "Litsight",
+        description:
+          "Development of a platform focused on leadership, DISC-LCC tests, and human talent management.",
+      },
       {
         year: "2025",
         title: "Front-End Developer",
