@@ -20,7 +20,7 @@ export const projectsContent = {
             "En tiempos en que el ruido del mundo intenta apagar la fe, Fervor es una invitación a volver al fuego original: la presencia viva de Dios. Más que un evento, es una experiencia diseñada para renovar tu pasión, fortalecer tu fe y reavivar lo que Dios depositó en ti.",
           image: "/projects/fervor-web.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-          liveUrl: "#",
+          liveUrl: "https://www.fervor-web.site/",
         },
         {
           title: "Litsight - Landing Page",
@@ -28,7 +28,7 @@ export const projectsContent = {
             "Landing page para exponer la plataforma Litsight. Evalúa comportamiento y competencias con una sola plataforma. Selecciona, desarrolla y acompaña personas con base en datos objetivos. Plataforma de talento humano para decisiones estratégicas en RRHH.",
           image: "/projects/landing-litsight.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-          liveUrl: "#",
+          liveUrl: "https://litsight.pro/",
         },
         {
           title: "Litsight - Aplicación",
@@ -36,7 +36,7 @@ export const projectsContent = {
             "Plataforma en la nube para aplicar evaluaciones de comportamiento y competencias fácilmente. Optimiza procesos de selección, identifica competencias clave, genera reportes comparativos y desarrolla el potencial de tu equipo con análisis de potencial y planes personalizados.",
           image: "/projects/app-litsight.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS", "Plataforma Cloud"],
-          liveUrl: "#",
+          liveUrl: "https://app.litsight.pro/",
         },
         {
           title: "Allegretto - Escuela de Música",
@@ -92,7 +92,7 @@ export const projectsContent = {
             "In times when the noise of the world tries to extinguish faith, Fervor is an invitation to return to the original fire: the living presence of God. More than an event, it is an experience designed to renew your passion, strengthen your faith and rekindle what God deposited in you.",
           image: "/projects/fervor-web.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-          liveUrl: "#",
+          liveUrl: "https://www.fervor-web.site/",
         },
         {
           title: "Litsight - Landing Page",
@@ -100,7 +100,7 @@ export const projectsContent = {
             "Landing page to showcase the Litsight platform. Evaluate behavior and competencies with a single platform. Select, develop and accompany people based on objective data. Human talent platform for strategic HR decisions.",
           image: "/projects/landing-litsight.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-          liveUrl: "#",
+          liveUrl: "https://litsight.pro/",
         },
         {
           title: "Litsight - Application",
@@ -108,7 +108,7 @@ export const projectsContent = {
             "Cloud platform to easily apply behavior and competency assessments. Optimize selection processes, identify key competencies, generate comparative reports and develop your team's potential with potential analysis and personalized plans.",
           image: "/projects/app-litsight.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS", "Cloud Platform"],
-          liveUrl: "#",
+          liveUrl: "https://app.litsight.pro/",
         },
         {
           title: "Allegretto - Music School",
