@@ -99,12 +99,14 @@ export function Projects() {
                         Demo
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
-                      <Link href={project.githubUrl} target="_blank">
-                        <Github className="mr-2 h-4 w-4" />
-                        Código
-                      </Link>
-                    </Button>
+                    {project.githubUrl && project.githubUrl !== project.liveUrl && project.githubUrl !== "#" && (
+                      <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
+                        <Link href={project.githubUrl} target="_blank">
+                          <Github className="mr-2 h-4 w-4" />
+                          Código
+                        </Link>
+                      </Button>
+                    )}
                   </CardFooter>
                 </div>
               </motion.div>
