@@ -1,20 +1,20 @@
 export const heroContent = {
   es: {
-    greeting: "¡Hola! Soy",
+    greeting: "// Web Developer",
     name: "Daniel Escorcia",
-    tagline: "Desarrollador Frontend + Creador de Contenido",
+    tagline: "Creo experiencias digitales que conectan, convierten e impactan",
     description:
-      "Construyo experiencias digitales modernas y creativas que combinan código limpio con diseño impactante.",
-    cta: "Conoce mi trabajo",
+      "Desarrollo interfaces modernas con animaciones de alto nivel, código limpio y atención obsesiva al detalle. Si lo puedes imaginar, lo puedo construir.",
+    cta: "Ver proyectos",
     resume: "Descargar CV",
   },
   en: {
-    greeting: "Hi! I'm",
+    greeting: "// Web Developer",
     name: "Daniel Escorcia",
-    tagline: "Frontend Developer + Content Creator",
+    tagline: "I create digital experiences that connect, convert, and impact",
     description:
-      "I build modern and creative digital experiences that combine clean code with impactful design.",
-    cta: "See my work",
+      "I develop modern interfaces with high-level animations, clean code, and obsessive attention to detail. If you can imagine it, I can build it.",
+    cta: "View projects",
     resume: "Download CV",
   },
 } 

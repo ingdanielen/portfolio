@@ -168,14 +168,14 @@ export const aboutContent = {
     ],
     experience: [
       {
-        year: "2024-Present",
+        year: "2025-Present",
         title: "Frontend Developer",
         company: "Litsight",
         description:
           "Development of a platform focused on leadership, DISC-LCC tests, and human talent management.",
       },
       {
-        year: "2025",
+        year: "2024-2025",
         title: "Front-End Developer",
         company: "Naowee SAS",
         description: "Development of scalable web platforms using Next.js, TypeScript, Redux and Tailwind CSS.",

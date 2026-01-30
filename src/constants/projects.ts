@@ -4,8 +4,19 @@ export const projectsContent = {
     description: "Una selección de mis trabajos más recientes en desarrollo frontend y producción de contenido.",
     professionalTitle: "Proyectos Profesionales",
     personalTitle: "Proyectos Personales",
+    viewProject: "Ver proyecto",
+    viewCode: "Ver código",
     projects: {
       professional: [
+        {
+          title: "MSC Surveyors",
+          description:
+            "Sitio web corporativo para compañía internacional de inspección marítima. Cuenta con un CMS personalizado basado en Git que sincroniza automáticamente los cambios de contenido con GitHub, activando despliegues instantáneos. Incluye soporte multilingüe (ES/EN/ZH), panel de administración con doble autenticación, blog y galería de imágenes.",
+          image: "/projects/msc-surveyors.webp",
+          tags: ["Next.js", "TypeScript", "Tailwind CSS", "NextAuth.js", "GitHub API", "Framer Motion"],
+          liveUrl: "https://mscsurveyors.org",
+          featured: true,
+        },
         {
           title: "Juegos Intercolegiados 2025",
           description:
@@ -13,6 +24,7 @@ export const projectsContent = {
           image: "/projects/jin-img.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS", "Redux"],
           liveUrl: "https://www.juegosintercolegiados.com.co/",
+          featured: true,
         },
         {
           title: "Fervor",
@@ -76,8 +88,19 @@ export const projectsContent = {
     description: "A selection of my most recent work in frontend development and content production.",
     professionalTitle: "Professional Projects",
     personalTitle: "Personal Projects",
+    viewProject: "View project",
+    viewCode: "View code",
     projects: {
       professional: [
+        {
+          title: "MSC Surveyors",
+          description:
+            "Corporate website for an international maritime inspection company. Features a custom Git-based CMS that automatically syncs content changes with GitHub, triggering instant deployments. Includes multilingual support (ES/EN/ZH), admin panel with dual authentication, blog, and image gallery.",
+          image: "/projects/msc-surveyors.webp",
+          tags: ["Next.js", "TypeScript", "Tailwind CSS", "NextAuth.js", "GitHub API", "Framer Motion"],
+          liveUrl: "https://mscsurveyors.org",
+          featured: true,
+        },
         {
           title: "National School Games 2025",
           description:
@@ -85,6 +108,7 @@ export const projectsContent = {
           image: "/projects/jin-img.png",
           tags: ["Next.js", "TypeScript", "Tailwind CSS", "Redux"],
           liveUrl: "https://www.juegosintercolegiados.com.co/",
+          featured: true,
         },
         {
           title: "Fervor",

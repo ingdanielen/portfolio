@@ -1,0 +1,65 @@
+/* Performance Optimizations */
+
+/* GPU Acceleration para elementos animados */
+[data-animate],
+.animate-element,
+section,
+.gsap-animated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Contain removido para compatibilidad con ScrollTrigger pin */
+/* ScrollTrigger necesita acceso completo al layout para calcular posiciones */
+section {
+  /* contain: layout style paint; - Removido para ScrollTrigger */
+  /* content-visibility: auto; - Removido para ScrollTrigger */
+  position: relative;
+  display: block;
+  min-height: 0; /* Permite que ScrollTrigger calcule correctamente */
+}
+
+/* Optimización de imágenes */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Prevenir layout shifts */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimización de scroll */
+html {
+  scroll-padding-top: 80px;
+  scroll-behavior: smooth;
+}
+
+/* Reducir repaints - pero sin contain que interfiera con ScrollTrigger */
+.container,
+[class*="container"] {
+  /* contain: layout; - Removido para ScrollTrigger */
+  position: relative;
+}
+
+/* Optimización de transiciones */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Desactivar animaciones para usuarios que prefieren reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

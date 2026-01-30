@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,7 @@ export function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false)
   const { language } = useLanguage()
   const [isMobile, setIsMobile] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const navItems = [
     { name: language === "es" ? "Inicio" : "Home", href: "#home", icon: <Home className="h-4 w-4" /> },
@@ -22,6 +24,10 @@ export function FloatingNav() {
     { name: language === "es" ? "Contenido" : "Content", href: "#content", icon: <ImageIcon className="h-4 w-4" /> },
     { name: language === "es" ? "Contacto" : "Contact", href: "#contact", icon: <Mail className="h-4 w-4" /> },
   ]
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,10 +59,18 @@ export function FloatingNav() {
     }
   }, [])
 
-  return (
+  const navContent = (
     <>
       {/* Mobile Toggle Button */}
-      <div className="fixed bottom-6 right-6 z-50 md:hidden">
+      <div 
+        style={{ 
+          position: "fixed", 
+          bottom: "24px", 
+          right: "24px", 
+          zIndex: 9999 
+        }}
+        className="md:hidden"
+      >
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <Button
             onClick={() => setIsOpen(!isOpen)}
@@ -75,7 +89,13 @@ export function FloatingNav() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-20 right-6 z-50 bg-background/80 backdrop-blur-lg rounded-2xl shadow-lg border p-2"
+            style={{ 
+              position: "fixed", 
+              bottom: "88px", 
+              right: "24px", 
+              zIndex: 9999 
+            }}
+            className="bg-background/80 backdrop-blur-lg rounded-2xl shadow-lg border p-2"
           >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
@@ -99,7 +119,16 @@ export function FloatingNav() {
       </AnimatePresence>
 
       {/* Desktop Navigation */}
-      <div className="fixed top-1/2 right-6 transform -translate-y-1/2 z-50 hidden md:block">
+      <div 
+        style={{ 
+          position: "fixed", 
+          top: "50%", 
+          right: "24px", 
+          transform: "translateY(-50%)", 
+          zIndex: 9999 
+        }}
+        className="hidden md:block"
+      >
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -136,4 +165,9 @@ export function FloatingNav() {
       </div>
     </>
   )
+
+  // Renderizar usando portal directamente en el html para evitar problemas con stacking contexts
+  if (!mounted || typeof window === "undefined") return null
+  
+  return createPortal(navContent, document.documentElement)
 }
